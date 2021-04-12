@@ -275,7 +275,7 @@ p
 
 # Installation
 
-To install `ggtreeExtra` package, please start R (version "4.0") and enter:
+To install `ggtreeExtra` package, please start R (version >= "4.0") and enter:
 
 ```{r, eval=FALSE}
 if (!requireNamespace("BiocManager", quietly = TRUE))

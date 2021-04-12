@@ -36,7 +36,7 @@ can pull and run it according to the following.
     need to provide your IP address, you can find it using
     `docker-machine ip default`.
   - Inside the RStudio, run: `browseVignettes(package =
-    "ggtreeextraarticleenv")`
+    "ggtreeExtraArticleEnv")`
   - You can click one of the links: “PDF”, “source”, “R code”
   - In case of `The requested page was not found` error, try add ‘help/’
     in front of the hostname in the URL (this is a known bug):
