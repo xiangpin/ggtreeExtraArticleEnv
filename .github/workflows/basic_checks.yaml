@@ -60,6 +60,12 @@ jobs:
           tag_with_sha: true
           tags: latest
 
+      -name:
+        run: |
+          apt-get update
+          apt-get -y install rsync
+                                       
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
