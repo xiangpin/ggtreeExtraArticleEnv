@@ -22,6 +22,14 @@ jobs:
           key: ${{ runner.os }}-r-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-1-
 
+      - name: Install GDAL library
+        if: runner.os == "Linux"
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run:
+          apt-get update
+          apt-get -y install libgdal-dev gdal-bin libproj-dev proj-data proj-bin libgeos-dev
+
       # This lets us augment with additional dependencies
       - name: Install system dependencies
         if: runner.os == 'Linux'
@@ -55,19 +63,3 @@ jobs:
           tag_with_sha: true
           tags: latest
 
-      - name: Build pkgdown
-        run: |
-           PATH=$PATH:$HOME/bin/ Rscript -e 'pkgdown::build_site(".")'
-
-      # deploy needs rsync? Seems so.
-      - name: Install deploy dependencies
-        run: |
-          apt-get update
-          apt-get -y install rsync
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: docs # The folder the action should deploy.
