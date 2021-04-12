@@ -27,16 +27,6 @@ jobs:
           key: ${{ runner.os }}-r-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-r-1-
 
-      # This lets us augment with additional dependencies
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
-
       - name: Install dependencies
         run: |
           options(repos = c(CRAN = "https://cran.r-project.org"))
@@ -59,6 +49,11 @@ jobs:
           tag_with_ref: true
           tag_with_sha: true
           tags: latest
+
+      - name: Install deploy dependencies
+        run: |
+          apt-get update
+          apt-get -y install rsync
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
