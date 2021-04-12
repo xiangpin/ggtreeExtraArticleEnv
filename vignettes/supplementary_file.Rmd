@@ -706,25 +706,28 @@ p2 <- p1 +
       ) 
       
 ## subplot B
-tr <- read.tree(system.file("extdata","VertebrateGutMicrobiomes/annotated_host_tree.tre", package="ggtreeExtraArticleEnv"))
-corda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/mantel.jaccard.pearson.csv", package="ggtreeExtraArticleEnv"))
+tr <- read.tree(system.file("extdata","VertebrateGutMicrobiomes/annotated_host_tree.tre", 
+                            package="ggtreeExtraArticleEnv"))
+corda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/mantel.jaccard.pearson.csv", 
+                              package="ggtreeExtraArticleEnv"))
 corda$r <- abs(corda$r)
-barda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_diet_bar.csv",package="ggtreeExtraArticleEnv"), check.names=F)
+barda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_diet_bar.csv",
+                              package="ggtreeExtraArticleEnv"), check.names=F)
 barda <- reshape2::melt(barda, id.vars="ID", variable.name="Diet", value.name="mete")
 barda$Diet <- factor(barda$Diet, levels=c("Fruit","Invertebrates",
                                           "Nectar","Plants","Scavenging",
                                           "Seeds","Meat (Ectotherms)",
                                           "Meat (Endotherms)",
                                           "Meat (Fish)","Meat (Unknown)"))
-
-cladeda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_clade_class.csv", package="ggtreeExtraArticleEnv"), check.names=F)
+cladeda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_clade_class.csv", 
+                                package="ggtreeExtraArticleEnv"), check.names=F)
 cladeda$id <- nodeid(tr, cladeda$id)
 cladeda$class <- factor(cladeda$class, levels=c("Amphibia","Chelonia","Lepidosauria",
                                                 "Crocodylomorpha","Aves","Mammalia"))
-
-flightda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_flight_bar.csv", package="ggtreeExtraArticleEnv"))
-
-phylopicda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_phylopic_uid.csv", package="ggtreeExtraArticleEnv"))
+flightda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_flight_bar.csv", 
+                                 package="ggtreeExtraArticleEnv"))
+phylopicda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_phylopic_uid.csv", 
+                                   package="ggtreeExtraArticleEnv"))
 phylopicda$class <- factor(phylopicda$class, levels=c("Amphibia","Chelonia","Lepidosauria",
                                                       "Aves","Mammalia"))
 
@@ -780,8 +783,7 @@ fig2 <- fig1 +
           offset=115) +
       scale_colour_manual(
           name="Host Class",
-          values=c("#b2df8a","#33a02c","#fb9a99",
-                   "#e31a1c","#EACB47","#6a3d9a"),
+          values=c("#b2df8a","#33a02c","#fb9a99","#e31a1c","#EACB47","#6a3d9a"),
           guide=guide_legend(
                     keywidth=0.3,
                     keyheight=0.3,
@@ -819,8 +821,7 @@ fig4 <- fig3 +
           position=position_identityx()
       ) +
       scale_colour_manual(
-          values=c("#b2df8a","#33a02c","#fb9a99",
-                   "#EACB47","#6a3d9a"),
+          values=c("#b2df8a","#33a02c","#fb9a99","#EACB47","#6a3d9a"),
           guide="none"
       ) +
       theme(
@@ -862,7 +863,8 @@ library(treeio)
 library(ggplot2)
 library(ggnewscale)
 library(tidytree)
-tr <- read.raxml(system.file("extdata","Methanotroph/Methanotroph_rpS3_Modified_Alignment_RAxML", package="ggtreeExtraArticleEnv"))
+tr <- read.raxml(system.file("extdata","Methanotroph/Methanotroph_rpS3_Modified_Alignment_RAxML", 
+                             package="ggtreeExtraArticleEnv"))
 # Optional, Root the tree to the archaea sequences
 treeda <- root(tr, node=1402, edgelabel=TRUE)
 root <- rootnode(treeda)
@@ -1317,11 +1319,16 @@ library(MicrobiotaProcess)
 library(ggnewscale)
 library(grid)
 
-alltax <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/all_stain_taxonomy.csv", package="ggtreeExtraArticleEnv"))
-linktab <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/Interaction_link_tab.csv", package="ggtreeExtraArticleEnv"))
-weighttab <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/Interaction_weight.csv", package="ggtreeExtraArticleEnv"))
-tippoint <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/stain_tippoint.csv", package="ggtreeExtraArticleEnv"))
-BGCsda <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/BGCs_heatmap.csv", package="ggtreeExtraArticleEnv"))
+alltax <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/all_stain_taxonomy.csv", 
+                               package="ggtreeExtraArticleEnv"))
+linktab <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/Interaction_link_tab.csv", 
+                                package="ggtreeExtraArticleEnv"))
+weighttab <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/Interaction_weight.csv", 
+                                  package="ggtreeExtraArticleEnv"))
+tippoint <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/stain_tippoint.csv", 
+                                 package="ggtreeExtraArticleEnv"))
+BGCsda <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/BGCs_heatmap.csv", 
+                               package="ggtreeExtraArticleEnv"))
 
 tippoint$Taxa <- factor(tippoint$Taxa,
                         levels=c("Actinobacteria",
@@ -1435,9 +1442,7 @@ p3 <- p2 +
 
 p4 <- p3 +
       geom_tiplab(
-          mapping=aes(
-                      label=names
-                  ),
+          mapping=aes(label=names),
           align=TRUE,
           size=1,
           linetype=NA,
@@ -1449,11 +1454,7 @@ p5 <- p4 +
       geom_fruit(
           data=weighttab,
           geom=geom_bar,
-          mapping=aes(
-                      x=value, 
-                      y=Strain, 
-                      fill=Number
-                  ),
+          mapping=aes(x=value, y=Strain, fill=Number),
           stat="identity",
           orientation="y",
           offset=0.48,
