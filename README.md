@@ -3,7 +3,7 @@
 # ggtreeExtra: Compact visualization of richly annotated phylogenetic data
 
 GitHub Action build status badge:
-![.github/workflows/basic\_checks.yaml](https://github.com/xiangpin/ggtreeExtraArticleEnv/workflows/.github/workflows/basic_checks.yaml/badge.svg)
+![.github/workflows/basic\_checks.yaml](https://github.com/xiangpin/ggtreeextraarticleenv/workflows/.github/workflows/basic_checks.yaml/badge.svg)
 
 If you use this work in published research, please cite:
 
@@ -15,29 +15,29 @@ of richly annotated phylogenetic data. ***Research Square*** doi:
 
 This repo contains source code and data to produce Supplementary
 Material of the above paper. And this repo has been pushed to [Docker
-Hub](https://hub.docker.com/r/xushuangbin/ggtreeExtraArticleEnv). You
+Hub](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv). You
 can pull and run it according to the following.
 
 ## How to run Docker
 
   - Install Docker (<https://www.docker.com/>)
   - Pull the Docker image from Docker Hub:
-      - `docker pull xushuangbin/ggtreeExtraArticleEnv:latest`
+      - `docker pull xushuangbin/ggtreeextraarticleenv:latest`
       - or
-      - `sudo pull xushuangbin/ggtreeExtraArticleEnv:latest`
+      - `sudo pull xushuangbin/ggtreeextraarticleenv:latest`
   - Run the image:
       - `docker run -e PASSWORD=yourpassword -p 8787:8787
-        xushuangbin/ggtreeExtraArticleEnv`
+        xushuangbin/ggtreeextraarticleenv`
       - or
-      - `docker run -e PASSWORD=yourpassword -p 8787:8787
-        xushuangbin/ggtreeExtraArticleEnv`
+      - `sudo docker run -e PASSWORD=yourpassword -p 8787:8787
+        xushuangbin/ggtreeextraarticleenv`
   - Log in to RStudio at <http://localhost:8787> using username
     `rstudio` and password `yourpassword`. For Windows users, you also
     need to provide your IP address, you can find it using
     `docker-machine ip default`.
   - Inside the RStudio, run: `browseVignettes(package =
-    "ggtreeExtraArticleEnv")`
+    "ggtreeextraarticleenv")`
   - You can click one of the links: “PDF”, “source”, “R code”
   - In case of `The requested page was not found` error, try add ‘help/’
     in front of the hostname in the URL (this is a known bug):
-    <http://localhost:8787/help/library/ggtreeExtraArticleEnv/doc/ggtreeExtraArticleEnv.html>
+    <http://localhost:8787/help/library/ggtreeExtraArticleEnv/doc/supplementary_file.pdf>
