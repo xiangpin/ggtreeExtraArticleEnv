@@ -13,7 +13,7 @@ jobs:
 
       - name: Install telive
         run: |
-          apt-get -y install texlive texlive-xetex texlive-fonts-extra
+          apt-get -y install texlive texlive-xetex texlive-fonts-extra texlive-extra-utils
 
       - name: Install dependencies
         run: |

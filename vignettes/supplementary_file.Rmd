@@ -45,6 +45,7 @@ options(knitr.table.fromat = "latex")
 knitr::opts_chunk$set(fig.pos= "!ht")
 #knitr::opts_chunk$set(out.width="90%")
 knitr::opts_chunk$set(fig.align="center")
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
 usepackage_latex("float")
 usepackage_latex("makecell")
 usepackage_latex("booktabs")
@@ -275,6 +276,8 @@ p
 
 # Installation
 
+## Local platform
+
 To install `ggtreeExtra` package, please start R (version >= "4.0") and enter:
 
 ```{r, eval=FALSE}
@@ -324,10 +327,43 @@ install.packages("ggstar")
 
 # For Fig.S9
 BiocManager::install("MicrobiotaProcess")
-
 ```
 
-The source codes and datasets to produce this file can be obtained from the repository^[<https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>].
+The source codes and datasets to produce the figures can be obtained from the repository^[<https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>].
+
+\newpage
+
+## Docker image
+
+To reproduce the results of the file easily, we also pushed the source code and datasets to the docker hub^[<https://github.com/xiangpin/ggtreeExtraArticleEnv>], which provides the environment to produce the figures. Users do not need to install the dependency packages.
+
+1. Install Docker (https://www.docker.com/). For example:
+
+```{r, eval=FALSE}
+# Terminal of Ubuntu
+sudo apt-get install docker.io
+```
+
+2. Pull the Docker image from Docker Hub:
+
+```{r, eval=FALSE}
+# Terminal of Ubuntu
+sudo pull xushuangbin/ggtreeextraarticleenv:latest
+```
+
+3. Run the image:
+
+```{r, eval=FALSE}
+# Terminal of Ubuntu
+sudo docker run -e PASSWORD=yourpassword -p 8787:8787 xushuangbin/ggtreeextraarticleenv
+```
+
+4. Log in to RStudio at `http://localhost:8787` using username `rstudio` and password `yourpassword`. For Windows users, you also need to provide your IP address, you can find it using `docker-machine ip default`. Inside the RStudio, run: `browseVignettes(package = "ggtreeExtraArticleEnv")`
+
+5. You can click one of the links: "PDF", "source", "R code". 
+   In case of `The requested page was not found` error, try add 'help/' in front of the hostname in the URL (this is a known bug):
+
+   `http://localhost:8787/help/library/ggtreeExtraArticleEnv/doc/supplementary_file.pdf`
 
 \newpage
 
