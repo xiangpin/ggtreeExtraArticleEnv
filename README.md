@@ -21,6 +21,7 @@ can pull and run it according to the following.
 ## How to run Docker
 
   - Install Docker (<https://www.docker.com/>)
+      - `sudo apt-get install docker.io` (Ubuntu)
   - Pull the Docker image from Docker Hub:
       - `docker pull xushuangbin/ggtreeextraarticleenv:latest`
       - or

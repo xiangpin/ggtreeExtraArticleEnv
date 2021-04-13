@@ -21,6 +21,7 @@ This repo contains source code and data to produce Supplementary Material of the
 ## How to run Docker
 
 - Install Docker (https://www.docker.com/)
+  - `sudo apt-get install docker.io` (Ubuntu)
 - Pull the Docker image from Docker Hub:
   - `docker pull xushuangbin/ggtreeextraarticleenv:latest`
   - or
