@@ -16,7 +16,7 @@ If you use this work in published research, please cite:
 S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Research Square*__ doi: [10.21203/rs.3.rs-155672/v2](https://doi.org/10.21203/rs.3.rs-155672/v2) (preprint).
 
 
-This repo contains source code and data to produce Supplementary Material of the above paper. And this repo has been pushed to [Docker Hub](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv). You can pull and run it according to the following.
+This repo contains source code and data to produce Supplementary Material of the above paper. And this repo has been pushed to [Docker Hub](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv). You can pull and run it according to the following. If you want to build the computing environment about the supplemental file of the above paper on the local platform, you can refer to [this repository](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra).
 
 ## How to run Docker
 

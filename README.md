@@ -16,7 +16,10 @@ of richly annotated phylogenetic data. ***Research Square*** doi:
 This repo contains source code and data to produce Supplementary
 Material of the above paper. And this repo has been pushed to [Docker
 Hub](https://hub.docker.com/r/xushuangbin/ggtreeextraarticleenv). You
-can pull and run it according to the following.
+can pull and run it according to the following. If you want to build the
+computing environment about the supplemental file of the above paper on
+the local platform, you can refer to [this
+repository](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra).
 
 ## How to run Docker
 
