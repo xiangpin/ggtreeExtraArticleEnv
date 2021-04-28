@@ -18,7 +18,8 @@ Imports:
     tidytree,
     ggplot2,
     ggpattern
-Suggests: 
+Suggests:
+    rmarkdown, 
     kableExtra,
     bookdown,
     ggstar,
