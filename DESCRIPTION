@@ -1,6 +1,6 @@
 Package: ggtreeExtraArticleEnv
 Title: The environment of article of ggtreeExtra
-Version: 0.0.0.9
+Version: 0.0.1
 Authors@R: c(
     person(given = "Shuangbin",   family = "Xu", role = c("aut", "cre"), email = "xshuangbin@163.com",    comment = c(ORCID = "0000-0003-3513-5362")),
     person(given = "Guangchuang", family= "Yu",  role = c("aut"),        email="guangchuangyu@gmail.com", comment = c(ORCID = "0000-0002-6485-8781"))
@@ -23,6 +23,10 @@ Suggests:
     bookdown,
     ggstar,
     MicrobiotaProcess,
+    phyloseq,
+    ggsignif,
+    magrittr,
+    reshape2, 
     Cairo,
     aplot,
     patchwork,
