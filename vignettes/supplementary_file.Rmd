@@ -63,7 +63,7 @@ library(patchwork)
 
 # Overview of the *ggtreeExtra* package {#chapter1}
 
-Integrating and visualizing associated data with a phylogenetic tree helps to identify biological patterns and generate new hypotheses. The associated data sets are diverse (*e.g.* abundance of species, gene expression level, taxonomy information of species, type and scale of target genes, and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools were designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as a universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphics [@Wilkinson2012] implemented in the ggplot2 package. Users can easily map variables (*e.g.* abundance of species, length of the genome, or sampling location) of associated data to aesthetic attributes (*e.g.* size, color, and shape) for visualizing external geometric objects (*e.g.* bar chart, point, or box plot) with a phylogenetic tree. The details (such as the actual mapping of visual values, figure legends, and plot appearance) of the graphics can be adjusted by the corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
+Integrating and visualizing associated data with a phylogenetic tree help to identify biological patterns and generate new hypotheses. The associated data sets are diverse (*e.g.* abundance of species, gene expression level, taxonomy information of species, type and scale of target genes, and sampling information). Several tools have been developed to integrate and display associated data on a phylogenetic tree. However, only a few annotation layers and tree layouts are supported and most of the tools were designed for specific domains (Tab. \ref{tab:compare}). Here, we developed *ggtreeExtra* as a universal tool to annotate multi-dimensional data on the external panels of a phylogenetic tree (Fig. \ref{fig:OverView}). It can link *ggtree* [@ggtree1] and **geom** functions defined in *ggplot2* [@ggplot2] or other ggplot2 extensions. It supports most of the tree layouts defined in *ggtree* [@ggtree1]. The tree can be annotated by **geom** functions defined in *ggtree* [@ggtree1] before passing it to *ggtreeExtra* (Fig. \ref{fig:OverView}). The *ggtreeExtra* package was developed based on the grammar of graphics [@Wilkinson2012] implemented in the ggplot2 package. Users can easily map variables (*e.g.* abundance of species, length of the genome, or sampling location) of associated data to aesthetic attributes (*e.g.* size, color, and shape) for visualizing external geometric objects (*e.g.* bar chart, point, or box plot) with a phylogenetic tree. The details (such as the actual mapping of visual values, figure legends, and plot appearance) of the graphics can be adjusted by the corresponding *scale* or *theme* functions defined in ggplot2 [@ggplot2] (Fig. \ref{fig:OverView}). Compared to other tools, *ggtreeExtra* supports more layouts and geometric layers for phylogenetic tree annotation. Making it more universal to handle data from different disciplines (Tab. \ref{tab:compare} and Fig. \ref{fig:compare}).
 
 (ref:OverView) **Overview of the design of *ggtreeExtra* package.**
 
@@ -152,6 +152,7 @@ compare_tab
 # visualization
 library(aplot)
 library(ggstar)
+require("reshape2")
 yy <- y %>%
       dplyr::select(c("V1", "V4")) %>%
       dplyr::mutate(V4=gsub("\\[note\\]", "", V4)) %>%
@@ -159,7 +160,7 @@ yy <- y %>%
                       sep=",",
                       paste0("layer", seq_len(length(unlist(strsplit(as.character(y$V4[1]), ",")))))
                       ) %>%
-      reshape2::melt(id="V1") %>%
+      melt(id="V1") %>%
       dplyr::select(c("V1", "value")) %>%
       dplyr::filter(!is.na(value))
 
@@ -171,7 +172,7 @@ yy2 <- y %>%
                       sep=",",
                       paste0("layout", seq_len(length(unlist(strsplit(as.character(y$V3[1]), ",")))))
                       ) %>%
-      reshape2::melt(id="V1", value.name = "layout") %>%
+      melt(id="V1", value.name = "layout") %>%
       dplyr::select(c("V1", "layout")) %>%
       dplyr::filter(!is.na(layout))
 
@@ -286,7 +287,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("ggtreeExtra")
 ```
 
-If you want to draw the examples of the supplemental file, you also need to install the following packages. You can refer the following command to install them.
+To reproduce examples in this document, you need to install several extra packages.
 
 ```{r, eval=FALSE}
 
@@ -302,8 +303,8 @@ BiocManager::install(c("phyloseq"))
 install.packages(c("ggplot2", "patchwork", "ggridges", "tibble", "dplyr"))
 
 # For Fig.S4, you also need to install 'ggpattern'.
-# Because ggpattern have not been released on 'CRAN', we
-# can install it from the github repository.
+# Because ggpattern has not been released on 'CRAN', we
+# need to install it from the github repository.
 
 if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
@@ -329,7 +330,7 @@ install.packages("ggstar")
 BiocManager::install("MicrobiotaProcess")
 ```
 
-The source codes and datasets to produce the figures can be obtained from the repository^[<https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>].
+The source codes and datasets to produce the figures can be obtained from the repository, <https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra>.
 
 \newpage
 
@@ -454,7 +455,7 @@ library(ggplot2)
 library(ggtreeExtra)
 library(patchwork)
 library(ggridges)
-library(phyloseq)
+library("phyloseq")
 
 set.seed(1024)
 
@@ -749,7 +750,8 @@ corda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/mantel.jaccard
 corda$r <- abs(corda$r)
 barda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_diet_bar.csv",
                               package="ggtreeExtraArticleEnv"), check.names=F)
-barda <- reshape2::melt(barda, id.vars="ID", variable.name="Diet", value.name="mete")
+require("reshape2")
+barda <- melt(barda, id.vars="ID", variable.name="Diet", value.name="mete")
 barda$Diet <- factor(barda$Diet, levels=c("Fruit","Invertebrates",
                                           "Nectar","Plants","Scavenging",
                                           "Seeds","Meat (Ectotherms)",
@@ -1337,8 +1339,6 @@ As the mentioned above, *ggtreeExtra* can link *ggtree* [@ggtree1] and geometric
 
 The Fig. 1b and Fig. 2 of [@Arabidopsis] show the directional interactions and the biosynthetic potential of isolates from the *Arabidopsis* leaf microbiome on the phylogenetic tree using GraPhlAn [@GraPhlAn]. Since GraPhlAn only supports annotation on circular layout trees using a few geometric layers, some phylogenetic patterns behind multi-dimensional data can not be found easily. Here, we use *ggtree* and *ggtreeExtra* to combine and visualize the information presented in the Fig.1b and Fig.2 of [@Arabidopsis] to a single tree graphic (Fig. \ref{fig:ArabidopsisTree}). In detail, the tree was visualized using *inward_circular* layout and the interactions of the isolates were visualized as a chord diagram using *geom_taxalink* implemented in *ggtree* [@ggtree1]. The biosynthetic potential of the isolates was displayed as a heatmap. The types of the BGCs (biosynthesis gene clusters) were used to color the heatmap and the numbers of BGCs were used to set the transparency of the heatmap. The number of interactions of inhibitions or sensitivities per strain was displayed by a stacked bar chart which was colored by the type of the interactions. 
 
-We found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. Besides, the strains that prefer the interactions of sensitivity might have more BGCs (biosynthesis gene clusters) from ribosomally synthesized and post-translationally modified peptides (*RiPP*). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis]. 
-
 Chord diagram allows us to display flows or connections between taxa, such as syntenic linkage among genes and genomes, and reticulate evolutionary relationships including horizontal gene transfer. With the modular design (Fig. \ref{fig:OverView}), *ggtreeExtra* allows more data types from diverse sources to be integrated with a phylogenetic tree and a chord diagram to explore associated data at the evolutionary and interaction context. 
 
 
@@ -1520,6 +1520,93 @@ p5 <- p4 +
 p5
 ```
 
+With the visualization methods provided in ggtree and ggtreeExtra, it is more easy to identify evolutionary patterns. From Fig. \ref{fig:ArabidopsisTree}, we found some strains from Firmicutes and Gammaproteobacteria have more inhibitor interactions. However, many strains from Alphaproteobacteria and Betateobacteria prefer the interaction of sensitivity. After subsequent Mann-Whitney U test, the number of different interactions among these strains was confirmed to be significant (highlighted in red in Fig. \ref{fig:compareNumber}). To our knowledge, there are no other software tools that can easily produce a figure like this (Fig. \ref{fig:ArabidopsisTree}) and the visualization do help us to explore the data and generate new insights as our findings were not revealed in the original paper [@Arabidopsis].
+
+(ref:compareNumber) **The comparison of number of inhibitor or sensitive interactions between the strains from different Phyla or Classes.**
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,  fig.width=6, fig.height=6, error=FALSE, fig.cap='(ref:compareNumber)', results='asis',compareNumber}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(MicrobiotaProcess)
+library(tibble)
+library(ggsignif)
+
+tippoint <- read.csv(system.file("extdata", "Arabidopsis_leaf_microbiome/stain_tippoint.csv", 
+                                 package="ggtreeExtraArticleEnv"))
+weighttab <- read.csv(system.file("extdata","Arabidopsis_leaf_microbiome/Interaction_weight.csv",
+                                   package="ggtreeExtraArticleEnv"))
+
+intersectNums <- merge(tippoint, weighttab, by.x="Isolation", by.y="Strain")
+intersectNums <- intersectNums %>%
+                 select(c("Isolation", "Taxa", "Number", "value"))
+
+intersectNums$Number <- gsub(" Strong", "", intersectNums$Number)
+intersectNums$Number <- gsub(" Weak", "", intersectNums$Number)
+require("reshape2")
+intersectNums <- dcast(intersectNums, Isolation + Taxa ~ Number, sum)
+intersectNums <- melt(intersectNums, id=c("Isolation", "Taxa"), variable.name="Number")
+
+tipTaxa <- intersectNums %>%
+           select(c("Isolation", "Taxa")) %>%
+           distinct() %>%
+           tibble::column_to_rownames(var="Isolation")
+
+comparelist <- MicrobiotaProcess:::get_comparelist(data=tipTaxa, classgroup="Taxa", controlgroup=NULL)
+intersectNums1 <- intersectNums[intersectNums$Number=="Inhibitor",]
+com_res1 <- lapply(comparelist, function(x)multi_compare(fun=wilcox.test, data=intersectNums1,
+                                                        feature="value", factorNames="Taxa",
+                                                        subgroup=x))
+com_resp1 <- lapply(com_res1, function(x)as.character(sprintf("%.2g",get_pvalue(x[[1]]))))
+
+intersectNums2 <- intersectNums[intersectNums$Number=="Sensitive",]
+com_res2 <- lapply(comparelist, function(x)multi_compare(fun=wilcox.test, data=intersectNums2,
+                                                          feature="value", factorNames="Taxa",
+                                                          subgroup=x))
+com_resp2 <- lapply(com_res2, function(x)as.character(sprintf("%.2g",get_pvalue(x[[1]]))))
+comparelist <- data.frame(do.call("rbind", comparelist))
+compare1 <- list(c("Actinobacteria", "Firmicutes"),
+                 c("Alphaproteobacteria", "Firmicutes"),
+                 c("Bacteroidetes", "Firmicutes"),
+                 c("Betaproteobacteria", "Firmicutes"),
+                 c("Actinobacteria", "Gammaproteobacteria"),
+                 c("Alphaproteobacteria", "Gammaproteobacteria"),
+                 c("Bacteroidetes", "Gammaproteobacteria"),
+                 c("Betaproteobacteria", "Gammaproteobacteria"))
+
+compare1 <- data.frame(do.call("rbind", compare1))
+comparelist$flag <- ifelse(comparelist$X1 %in% compare1$X1 & comparelist$X2 %in% compare1$X2, "T", "F")
+comparelist1 <- comparelist2 <- comparelist
+comparelist1$Number <- "Inhibitor"
+comparelist1$pvalue <- unlist(com_resp1)
+comparelist2$Number <- "Sensitive"
+comparelist2$pvalue <- unlist(com_resp2)
+signda <- do.call("rbind", list(comparelist1, comparelist2))
+signda$y <- c(seq(112, by=10, length.out=21), seq(21, by=2, length.out=21))
+
+FigS10 <- ggplot(data=intersectNums
+            ) +
+     geom_boxplot(aes(x=Taxa, y=value, fill=Taxa), outlier.size=0.5,outlier.shape=21) +
+     geom_signif(data=signda,
+                 mapping=aes(xmin=X1, xmax=X2, color=flag, annotations=pvalue, y_position=y),
+                 manual = T,
+                 textsize = 2,
+                 size=0.4,
+                 tip_length = 0.01
+
+     ) +
+     scale_color_manual(values=c("T"="red","F"="black")) +
+     facet_wrap(~Number, scales="free", nrow=1)  +
+     theme_bw() +
+     xlab(NULL) +
+     ylab(NULL)+
+     theme(axis.text.x=element_text(angle=-45, hjust=0),
+           legend.position="none",
+           plot.margin = unit(c(0.2, 1.8, 0.2, 0.2), "cm"))
+FigS10
+```
+
+\newpage
 # Summary {#chapter4}
 
 
@@ -1565,9 +1652,9 @@ In addition, the phylogenetic tree annotated by *ggtreeExtra* can also be conver
 
 # Methods
 
-**Code development**. The *ggtreeExtra* package was designed with four parts: data importation, data scaling, external layer position adjustment and the API interface. External data integrated to the tree or *ggtree* objects [@ggtree2; @ggtree2020] can be directly used in *ggtreeExtra*. The *geom_fruit* function also allows directly importing data and the data will be reordered according to the tree structure. External data either integrated into the tree or imported by the geom_fruit function need to be rescaled, since the ranges of the data and the tree are not in the same order of magnitude. Before visualizing the data using a specified geometric layer, the data scaling will be performed automatically to standardize the data range according to the magnitude of the tree scale. The data scaling process only changes the range of the data while keeps the distribution of the data unchanged. This ensures the control of the panel widths and avoids the tree and any external panel being squeezed (Supplemental Fig. S1).
+**Code development**. The *ggtreeExtra* package was designed with four parts: data importation, data scaling, external layer position adjustment and the API interface. External data integrated to the tree or *ggtree* objects [@ggtree2; @ggtree2020] can be directly used in *ggtreeExtra*. The *geom_fruit* function also allows directly importing data and the data will be reordered according to the tree structure. External data either integrated into the tree or imported by the geom_fruit function need to be rescaled, since the ranges of the data and the tree are not in the same order of magnitude. Before visualizing the data using a specified geometric layer, the data scaling will be performed automatically to standardize the data range according to the magnitude of the tree scale. The data scaling process only changes the range of the data while keeps the distribution of the data unchanged. This ensures the control of the panel width and avoids the tree and any external panel being squeezed (Fig. \ref{fig:OverView}).
 
-The position of the data graph (*i.e.* on the *right-hand* side or external ring of the tree, see also Supplemental Fig. S3) is controlled by the *position* parameter, which accepts a *position* method. Follow the object-oriented framework of the *ggplot2* [@ggplot2] package, *ggtreeExtra* implemented several *position* objects and methods including *position_identityx*, *positon_stackx*, *position_dodgex*, *position_dodgex2*, *position_points_jitterx*, *position_raincloudx* and *position_points_sinax* to shift the position of the corresponding geometric layer horizontally. To increase user experience, the default value of the *position* parameter is set to "auto" and the *geom_fruit* function will guess and determine a suitable position object for the specified geometric layer. That means using *positon_stackx* for *geom_bar* and *geom_col*, *positon_dodgex* for *geom_boxplot* and *geom_violin*, *geom_identityx* for others (*e.g.* *geom_point*, *geom_tile*, *geom_star*, *geom_phylopic* *etc*.). A geometric layer defined in *ggplot2*, *ggtree* or other *ggplot2*-extensions that has a *position* parameter should be compatible with the *geom_fruit* function, since it allows using *position* method defined in the *ggtreeExtra* package to adjust the output layer position (Supplemental Table S2).
+The position of the data graph (*i.e.* on the *right-hand* side or external ring of the tree, see also Fig. \ref{fig:ggridges}) is controlled by the *position* parameter, which accepts a *position* method. Follow the object-oriented framework of the *ggplot2* [@ggplot2] package, *ggtreeExtra* implemented several *position* objects and methods including *position_identityx*, *positon_stackx*, *position_dodgex*, *position_dodgex2*, *position_points_jitterx*, *position_raincloudx* and *position_points_sinax* to shift the position of the corresponding geometric layer horizontally. To increase user experience, the default value of the *position* parameter is set to "auto" and the *geom_fruit* function will guess and determine a suitable position object for the specified geometric layer. That means using *positon_stackx* for *geom_bar* and *geom_col*, *positon_dodgex* for *geom_boxplot* and *geom_violin*, *geom_identityx* for others (*e.g.* *geom_point*, *geom_tile*, *geom_star*, *geom_phylopic* *etc*.). A geometric layer defined in *ggplot2*, *ggtree* or other *ggplot2*-extensions that has a *position* parameter should be compatible with the *geom_fruit* function, since it allows using *position* method defined in the *ggtreeExtra* package to adjust the output layer position (Tab. \ref{tab:geom}).
 
 The interface of the geom_fruit is intuitive. It is easy to follow and working in the way users expect it to. External data can be imported via the *data* argument. The data will be visualized using a geometric layer, which can be specified via the *geom* argument. The *mapping* argument is designed to construct aesthetic mappings that describe how variables in the data are mapped to visual characteristics (*e.g.* color, shape, and size, *etc*.). The *y* aesthetic is required to be mapped to a variable that stored the taxa names in the external data set to allow geom_fruit to link through the data and the tree. The data will be reordered based on the tree structure. Other aesthetic mappings and non-variable settings can be specified to control the appearance of the data graph. Users can use the *offset* and *pwidth* arguments respectively to specify the distance between the external panels and the width of the data graph layer. Besides, the *geom_fruit* function allows setting axis and background grid lines for the data graph layer using the *grid.params* and *axis.params* arguments respectively. The data graph layer produced by *geom_fruit* will be displayed on the external panel and perfectly aligned to the tree. Visualizing data in *ggtreeExtra* is as simple as visualizing the data in *ggplot2* [@ggplot2]. The critical elements are the same – a data frame and a geometric layer to visualize the data with specific aesthetic mapping. Users don’t need to care about how the tree was linked to the data, since the *geom_fruit* function will do all the data manipulation for us. The *geom_fruit* was developed using object-oriented programming and the output data layer can be added to the tree graph using the plus sign that followed the layered grammar of graphics. Different data sets can be progressively added and displayed on different external panels.
 
