@@ -582,7 +582,6 @@ p1 <- p1 +
           pattern_density = 0.4,
           fill = "grey", 
           pattern_fill="grey35",
-          position=position_identityx(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
       ) + 
       theme(legend.key.size = unit(0.3, 'cm'))
@@ -598,7 +597,6 @@ p2 <- p2 +
           pattern_size = 0.1, 
           pattern_density = 0.4,
           fill = "grey",
-          position=position_identityx(),
           axis.params=list(axis="x",text.size=1.2, hjust=0.5, vjust=1)
       ) + 
       theme(legend.key.size = unit(0.3, 'cm'))
@@ -616,7 +614,6 @@ p3 <- p3 +
           pattern_spacing =0.01,
           fill = "grey", 
           pattern_fill="grey35",
-          position=position_dodgex(),
           grid.params=list(),
           axis.params=list(axis="x", text.size=1.2, hjust=0.5, vjust=1)
       ) + 
@@ -634,7 +631,6 @@ p4 <- p4 +
           pattern_density = 0.4, 
           pattern_spacing = 0.01,
           fill = "grey",
-          position = position_dodgex(),
           grid.params = list(),
           axis.params = list(axis="x", text.size=1.2, hjust=0.5,  vjust=1)
       ) + 
@@ -723,7 +719,6 @@ p2 <- p1 +
                              label=plot
                          ),
                  offset=0.4,
-                 position=position_identityx(),
                  vjust=0.4,
                  hjust=0.7,
                  vp.width=0.18,
@@ -757,7 +752,7 @@ phylopicda <- read.csv(system.file("extdata","VertebrateGutMicrobiomes/data_phyl
 phylopicda$class <- factor(phylopicda$class, levels=c("Amphibia","Chelonia","Lepidosauria",
                                                       "Aves","Mammalia"))
 
-fig <- ggtree(tr, layout="fan", open.angle=5, continuous=TRUE)
+fig <- ggtree(tr, layout="fan", open.angle=5, continuous="color")
 
 # Optional for color branches.
 fig <- fig %<+% corda
@@ -843,8 +838,7 @@ fig4 <- fig3 +
           mapping=aes(y=taxa, image=uid, color=class),
           size=0.035,
           offset=0.16,
-          alpha=0.8,
-          position=position_identityx()
+          alpha=0.8
       ) +
       scale_colour_manual(
           values=c("#b2df8a","#33a02c","#fb9a99","#EACB47","#6a3d9a"),
@@ -1240,7 +1234,6 @@ p2 <- p1 %<+% dt1 +
          shape=21,
          size=1.2,
          stroke=0.05,
-         position="identity",
          show.legend=FALSE
     )+
     scale_fill_manual(values=colors) 
@@ -1303,7 +1296,8 @@ p5 <- p4 +
            stat="identity",
            orientation="y",
            pwidth=0.3,
-           position=position_dodgex()) +
+           position=position_dodgex()
+      ) +
       scale_fill_manual(
            values=colors,
            guide=guide_legend(keywidth=0.35, keyheight=0.35, order=4)
